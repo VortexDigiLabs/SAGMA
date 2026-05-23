@@ -1,0 +1,6 @@
+{
+  "name": "Technical Diagram Modernizer",
+  "description": "An interactive workspace for high-fidelity 2D vector schematics, modernizing legacy grain and separator mechanical drawings with flow animations and text preservation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

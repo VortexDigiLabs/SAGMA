@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Schematic Workbench</title>
+    <script>
+      (function() {
+        // Patch window.fetch so it has a writable setter. This prevents TypeErrors
+        // if any library (like formdata-polyfill or node-fetch) tries to assign to it.
+        try {
+          var originalFetch = window.fetch;
+          if (originalFetch) {
+            var activeFetch = originalFetch;
+            var descriptor = Object.getOwnPropertyDescriptor(window, 'fetch');
+            if (!descriptor || descriptor.configurable) {
+              Object.defineProperty(window, 'fetch', {
+                get: function() { return activeFetch; },
+                set: function(val) { activeFetch = val; },
+                configurable: true,
+                enumerable: true
+              });
+            }
+            if (typeof globalThis !== 'undefined' && globalThis !== window) {
+              var gtDescriptor = Object.getOwnPropertyDescriptor(globalThis, 'fetch');
+              if (!gtDescriptor || gtDescriptor.configurable) {
+                Object.defineProperty(globalThis, 'fetch', {
+                  get: function() { return activeFetch; },
+                  set: function(val) { activeFetch = val; },
+                  configurable: true,
+                  enumerable: true
+                });
+              }
+            }
+          }
+        } catch (e) {
+          console.warn("Pre-emptive fetch setter definition bypassed:", e);
+        }
+
+        // Pre-emptively satisfy formdata-polyfill condition to prevent it from executing
+        // and attempting to override fetch inside modern browsers/iframes.
+        try {
+          if (typeof window !== 'undefined' && window.FormData && FormData.prototype) {
+            if (!FormData.prototype.keys) {
+              FormData.prototype.keys = function() {
+                var keys = [];
+                return keys[Symbol.iterator]();
+              };
+            }
+          }
+        } catch (e) {
+          console.warn("Pre-emptive FormData mock bypassed:", e);
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
