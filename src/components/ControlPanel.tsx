@@ -28,6 +28,7 @@ interface ControlProps {
   hoveredPartId: string | null;
   selectedPartId: string | null;
   onSelectPartId: (id: string | null) => void;
+  onHoverPartId: (id: string | null) => void;
   diagramName: string;
 }
 
@@ -47,6 +48,7 @@ export default function ControlPanel({
   hoveredPartId,
   selectedPartId,
   onSelectPartId,
+  onHoverPartId,
   diagramName
 }: ControlProps) {
   
@@ -217,14 +219,14 @@ export default function ControlPanel({
       </div>
 
       {/* SECTION 3: PARALYSIS / EXPLORATION METADATA ANNOTATOR */}
-      <div className="bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-xl p-5 shadow-xl flex flex-col gap-3 min-h-[160px] relative overflow-hidden">
-        <div className="flex items-center gap-2 border-b border-slate-800 pb-2">
+      <div className="bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-xl p-4 shadow-xl flex flex-col gap-2.5 h-[190px] min-h-[190px] max-h-[190px] relative overflow-hidden">
+        <div className="flex items-center gap-2 border-b border-slate-800 pb-2 flex-shrink-0">
           <Info className="w-4 h-4 text-emerald-400" />
           <h2 className="text-sm font-bold tracking-wider text-slate-100 uppercase">Mechanical Inspector</h2>
         </div>
 
         {activePart ? (
-          <div className="space-y-2 animate-fade-in">
+          <div className="space-y-2 animate-fade-in flex-1 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-slate-800 scrollbar-track-transparent">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-750">
                 {activePart.name}
@@ -241,13 +243,13 @@ export default function ControlPanel({
             </div>
             <div>
               <div className="text-[10px] text-slate-400">FUNCTION DESCRIPTION:</div>
-              <p className="text-xs text-slate-305 leading-relaxed font-sans">
+              <p className="text-xs text-slate-300 leading-relaxed font-sans">
                 {activePart.description}
               </p>
             </div>
           </div>
         ) : (
-          <div className="flex-1 flex flex-col items-center justify-center text-center p-3 text-slate-500">
+          <div className="flex-1 flex flex-col items-center justify-center text-center p-3 text-slate-500 flex-shrink-0">
             <Info className="w-7 h-7 stroke-[1.25] text-slate-700 mb-1.5 stroke-dashed" />
             <span className="text-xs leading-relaxed font-semibold">
               Hover over blueprint nodes or click parts to explore the internal layout.
@@ -274,15 +276,15 @@ export default function ControlPanel({
             return (
               <button
                 key={part.id}
-                onMouseEnter={() => onSelectPartId(part.id)}
-                onMouseLeave={() => onSelectPartId(null)}
+                onMouseEnter={() => onHoverPartId(part.id)}
+                onMouseLeave={() => onHoverPartId(null)}
                 onClick={() => onSelectPartId(selectedPartId === part.id ? null : part.id)}
-                className={`w-full p-2 rounded text-left flex items-center justify-between text-[11px] transition-all cursor-pointer ${
+                className={`w-full p-2 rounded text-left flex items-center justify-between text-[11px] transition-all cursor-pointer border ${
                   isSelected 
-                    ? 'bg-amber-500/15 border border-amber-500 text-amber-200' 
+                    ? 'bg-amber-500/15 border-amber-500 text-amber-200' 
                     : isHovered
-                    ? 'bg-slate-800 text-slate-100 border border-slate-700'
-                    : 'bg-slate-950/30 text-slate-400 border border-slate-950 hover:bg-slate-950/65'
+                    ? 'bg-slate-800 border-slate-700 text-slate-100'
+                    : 'bg-slate-950/30 border-transparent text-slate-400 hover:bg-slate-950/65'
                 }`}
               >
                 <span className="truncate font-mono font-bold tracking-wide">

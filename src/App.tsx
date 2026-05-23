@@ -350,15 +350,8 @@ export default function App() {
             parts={activeParts as MechanicalPart[]}
             hoveredPartId={hoveredPartId}
             selectedPartId={selectedPartId}
-            onSelectPartId={(id) => {
-              setSelectedPartId(id);
-              if (id) {
-                // Focus slightly on the element if wanted
-                setHoveredPartId(id);
-              } else {
-                setHoveredPartId(null);
-              }
-            }}
+            onSelectPartId={setSelectedPartId}
+            onHoverPartId={setHoveredPartId}
             diagramName={diagramName}
           />
 
