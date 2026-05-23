@@ -42,13 +42,29 @@ export default function ClosedCircuitAspirator({
   const [bafflePosition, setBafflePosition] = useState<number>(295);
 
   const colors = {
-    bg: theme === 'blueprint' ? '#0a192f' : theme === 'dark-industry' ? '#121214' : '#ffffff',
-    text: theme === 'blueprint' ? '#38bdf8' : theme === 'dark-industry' ? '#e2e8f0' : '#1e293b',
-    border: theme === 'blueprint' ? '#0ea5e9' : theme === 'dark-industry' ? '#334155' : '#94a3b8',
-    structure: theme === 'blueprint' ? '#115e59' : theme === 'dark-industry' ? '#334155' : '#e2e8f0',
-    structureStroke: theme === 'blueprint' ? '#0ea5e9' : theme === 'dark-industry' ? '#64748b' : '#334155',
-    airPath: theme === 'blueprint' ? 'rgba(56, 189, 248, 0.15)' : 'rgba(14, 165, 233, 0.08)',
-    activeHighlight: 'rgba(234, 179, 8, 0.25)',
+    bg: theme === 'sagma' ? '#ffffff' : theme === 'blueprint' ? '#0a192f' : theme === 'dark-industry' ? '#121214' : '#ffffff',
+    text: theme === 'sagma' ? '#003366' : theme === 'blueprint' ? '#38bdf8' : theme === 'dark-industry' ? '#e2e8f0' : '#1e293b',
+    border: theme === 'sagma' ? '#003366' : theme === 'blueprint' ? '#0ea5e9' : theme === 'dark-industry' ? '#334155' : '#94a3b8',
+    structure: theme === 'sagma' ? '#E1E8ED' : theme === 'blueprint' ? '#115e59' : theme === 'dark-industry' ? '#334155' : '#e2e8f0',
+    structureStroke: theme === 'sagma' ? '#003366' : theme === 'blueprint' ? '#0ea5e9' : theme === 'dark-industry' ? '#64748b' : '#334155',
+    airPath: theme === 'sagma' ? 'rgba(164, 212, 255, 0.15)' : theme === 'blueprint' ? 'rgba(56, 189, 248, 0.15)' : 'rgba(14, 165, 233, 0.08)',
+    activeHighlight: theme === 'sagma' ? 'rgba(242, 169, 0, 0.3)' : 'rgba(234, 179, 8, 0.25)',
+  };
+
+  const flowColors = {
+    grain1: theme === 'sagma' ? '#F2A900' : '#d97706',
+    grain2: theme === 'sagma' ? '#F2A900' : '#f59e0b',
+    grain3: theme === 'sagma' ? '#F2A900' : '#fbbf24',
+    grain4: theme === 'sagma' ? '#F2A900' : '#ca8a04',
+    
+    air1: theme === 'sagma' ? '#A4D4FF' : '#38bdf8',
+    air2: theme === 'sagma' ? '#A4D4FF' : '#0ea5e9',
+    air3: theme === 'sagma' ? '#A4D4FF' : '#0284c7',
+    
+    waste1: theme === 'sagma' ? '#8B0000' : '#ef4444',
+    waste2: theme === 'sagma' ? '#8B0000' : '#64748b',
+    waste3: theme === 'sagma' ? '#8B0000' : '#f87171',
+    waste4: theme === 'sagma' ? '#8B0000' : '#475569',
   };
 
   const speedSec = state.speed === 'paused' ? 0 : state.speed === 'slow' ? 12 : state.speed === 'fast' ? 3 : 6;
@@ -263,7 +279,7 @@ export default function ClosedCircuitAspirator({
               <path 
                 d="M 295 440 L 295 190 Q 295 110 390 120 T 450 165 L 450 250" 
                 fill="none" 
-                stroke="#0ea5e9" 
+                stroke={flowColors.air2} 
                 strokeWidth="2.5" 
                 strokeDasharray="18,10"
                 style={{ animation: `airflow-run ${speedSec/2}s infinite linear` }}
@@ -271,7 +287,7 @@ export default function ClosedCircuitAspirator({
               <path 
                 d="M 285 435 L 285 195 Q 285 120 375 130 T 435 180 L 435 240" 
                 fill="none" 
-                stroke="#38bdf8" 
+                stroke={flowColors.air1} 
                 strokeWidth="1.5" 
                 strokeDasharray="10,8"
                 style={{ animation: `airflow-run ${speedSec/2}s linear 0.4s infinite` }}
@@ -279,7 +295,7 @@ export default function ClosedCircuitAspirator({
               <path 
                 d="M 305 442 L 305 185 Q 305 100 405 110 T 465 155 L 465 270" 
                 fill="none" 
-                stroke="#0284c7" 
+                stroke={flowColors.air3} 
                 strokeWidth="2" 
                 strokeDasharray="15,12"
                 style={{ animation: `airflow-run ${speedSec/2}s linear 0.8s infinite` }}
@@ -289,7 +305,7 @@ export default function ClosedCircuitAspirator({
               <path 
                 d="M 460 270 L 460 360 Q 460 380, 440 380 L 430 355" 
                 fill="none" 
-                stroke="#38bdf8" 
+                stroke={flowColors.air1} 
                 strokeWidth="1.5" 
                 strokeDasharray="12,12"
                 style={{ animation: `airflow-run ${speedSec/2}s linear infinite` }}
@@ -299,7 +315,7 @@ export default function ClosedCircuitAspirator({
               <path 
                 d="M 430 294 L 430 260 M 360 360 L 335 360 L 335 440 Q 335 460 300 460" 
                 fill="none" 
-                stroke="#38bdf8" 
+                stroke={flowColors.air1} 
                 strokeWidth="1.5" 
                 strokeDasharray="10,6"
                 style={{ animation: `airflow-run ${speedSec/2.5}s linear infinite` }}
@@ -313,23 +329,23 @@ export default function ClosedCircuitAspirator({
           {state.showGrain && state.speed !== 'paused' && (
             <g id="wheat-heavy-particles">
               {/* Raw grain in hopper feeding down */}
-              <circle r="3.5" fill="#d97706" style={{ animation: `flow-hopper-sift ${speedSec/5}s linear infinite` }} />
-              <circle r="4.2" fill="#f59e0b" style={{ animation: `flow-hopper-sift-2 ${speedSec/5}s linear 0.3s infinite` }} />
+              <circle r="3.5" fill={flowColors.grain1} style={{ animation: `flow-hopper-sift ${speedSec/5}s linear infinite` }} />
+              <circle r="4.2" fill={flowColors.grain2} style={{ animation: `flow-hopper-sift-2 ${speedSec/5}s linear 0.3s infinite` }} />
 
               {/* Grain traversing Vibrating Feeder B */}
-              <circle r="3.8" fill="#d97706" style={{ animation: `flow-feeder-slide ${speedSec/4}s linear infinite` }} />
-              <circle r="3.2" fill="#f59e0b" style={{ animation: `flow-feeder-slide-2 ${speedSec/4}s linear 0.2s infinite` }} />
+              <circle r="3.8" fill={flowColors.grain1} style={{ animation: `flow-feeder-slide ${speedSec/4}s linear infinite` }} />
+              <circle r="3.2" fill={flowColors.grain2} style={{ animation: `flow-feeder-slide-2 ${speedSec/4}s linear 0.2s infinite` }} />
 
               {/* Heavy Grains falling through separation column E counter-current to airflow */}
-              <circle r="4.2" fill="#fbbf24" style={{ animation: `flow-grain-fall-leg-1 ${speedSec/3}s linear infinite` }} />
-              <circle r="3.8" fill="#d97706" style={{ animation: `flow-grain-fall-leg-2 ${speedSec/3}s linear 0.25s infinite` }} />
-              <circle r="3" fill="#ca8a04" style={{ animation: `flow-grain-fall-leg-3 ${speedSec/3}s linear 0.5s infinite` }} />
-              <circle r="4.5" fill="#d97706" style={{ animation: `flow-grain-fall-leg-4 ${speedSec/3}s linear 0.75s infinite` }} />
+              <circle r="4.2" fill={flowColors.grain3} style={{ animation: `flow-grain-fall-leg-1 ${speedSec/3}s linear infinite` }} />
+              <circle r="3.8" fill={flowColors.grain1} style={{ animation: `flow-grain-fall-leg-2 ${speedSec/3}s linear 0.25s infinite` }} />
+              <circle r="3" fill={flowColors.grain4} style={{ animation: `flow-grain-fall-leg-3 ${speedSec/3}s linear 0.5s infinite` }} />
+              <circle r="4.5" fill={flowColors.grain1} style={{ animation: `flow-grain-fall-leg-4 ${speedSec/3}s linear 0.75s infinite` }} />
 
               {/* Heavy Clean wheat falling from bottom C outlet */}
-              <circle r="4" fill="#f59e0b" style={{ animation: `flow-clean-output-1 ${speedSec/4}s linear infinite` }} />
-              <circle r="3.5" fill="#ca8a04" style={{ animation: `flow-clean-output-2 ${speedSec/4}s linear 0.15s infinite` }} />
-              <circle r="4.5" fill="#d97706" style={{ animation: `flow-clean-output-3 ${speedSec/4}s linear 0.35s infinite` }} />
+              <circle r="4" fill={flowColors.grain2} style={{ animation: `flow-clean-output-1 ${speedSec/4}s linear infinite` }} />
+              <circle r="3.5" fill={flowColors.grain4} style={{ animation: `flow-clean-output-2 ${speedSec/4}s linear 0.15s infinite` }} />
+              <circle r="4.5" fill={flowColors.grain1} style={{ animation: `flow-clean-output-3 ${speedSec/4}s linear 0.35s infinite` }} />
             </g>
           )}
 
@@ -339,18 +355,23 @@ export default function ClosedCircuitAspirator({
           {state.showWaste && state.speed !== 'paused' && (
             <g id="light-impurity-suspended-particles">
               {/* Lightweight husks separation in Column E - flying upwards! */}
-              <polygon points="0,0 5,0 2.5,5" fill="#ef4444" style={{ animation: `flow-impurity-lift-1 ${speedSec/2.5}s linear infinite` }} />
-              <rect width="3.5" height="3.5" fill="#64748b" style={{ animation: `flow-impurity-lift-2 ${speedSec/2.5}s linear 0.3s infinite` }} />
-              <polygon points="0,0 4,0 2,4" fill="#f87171" style={{ animation: `flow-impurity-lift-3 ${speedSec/2.5}s linear 0.6s infinite` }} />
+              <circle r="3" fill={flowColors.waste1} style={{ animation: `flow-impurity-lift-1 ${speedSec/2.5}s linear infinite` }} />
+              <circle r="2.5" fill={flowColors.waste2} style={{ animation: `flow-impurity-lift-2 ${speedSec/2.5}s linear 0.3s infinite` }} />
+              <circle r="2" fill={flowColors.waste3} style={{ animation: `flow-impurity-lift-3 ${speedSec/2.5}s linear 0.6s infinite` }} />
 
               {/* Travelling around top loop and precipitating in Expansion Chamber G */}
-              <rect width="4" height="4" fill="#64748b" style={{ animation: `flow-impurity-precipitate-1 ${speedSec/2}s linear infinite` }} />
-              <polygon points="0,0 5,0 2.5,5" fill="#ef4444" style={{ animation: `flow-impurity-precipitate-2 ${speedSec/2}s linear 0.5s infinite` }} />
-              <rect width="3" height="3" fill="#475569" style={{ animation: `flow-impurity-precipitate-3 ${speedSec/2}s linear 1.0s infinite` }} />
+              <circle r="3.5" fill={flowColors.waste2} style={{ animation: `flow-impurity-precipitate-1 ${speedSec/2}s linear infinite` }} />
+              <circle r="3" fill={flowColors.waste1} style={{ animation: `flow-impurity-precipitate-2 ${speedSec/2}s linear 0.5s infinite` }} />
+              <circle r="2" fill={flowColors.waste4} style={{ animation: `flow-impurity-precipitate-3 ${speedSec/2}s linear 1.0s infinite` }} />
 
               {/* Sifting through Rotary Valve star F into Chute K */}
-              <polygon points="0,0 4,0 2,4" fill="#ef4444" style={{ animation: `flow-impurity-discharge-1 ${speedSec/3.5}s linear infinite` }} />
-              <rect width="3.5" height="3.5" fill="#64748b" style={{ animation: `flow-impurity-discharge-2 ${speedSec/3.5}s linear 0.2s infinite` }} />
+              <circle r="2.5" fill={flowColors.waste1} style={{ animation: `flow-impurity-discharge-1 ${speedSec/3.5}s linear infinite` }} />
+              <circle r="3" fill={flowColors.waste2} style={{ animation: `flow-impurity-discharge-2 ${speedSec/3.5}s linear 0.2s infinite` }} />
+
+              {/* Extra minor debris particles for beautiful volumetric coverage */}
+              <circle r="1.5" fill={flowColors.waste3} style={{ animation: `flow-impurity-lift-1 ${speedSec/2.5}s linear 0.4s infinite` }} />
+              <circle r="1.8" fill={flowColors.waste1} style={{ animation: `flow-impurity-precipitate-1 ${speedSec/2.2}s linear 0.7s infinite` }} />
+              <circle r="1.7" fill={flowColors.waste2} style={{ animation: `flow-impurity-discharge-1 ${speedSec/3}s linear 0.5s infinite` }} />
             </g>
           )}
 

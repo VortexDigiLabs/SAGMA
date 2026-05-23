@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export type ThemeType = 'textbook' | 'blueprint' | 'monochrome' | 'dark-industry';
+export type ThemeType = 'textbook' | 'blueprint' | 'monochrome' | 'dark-industry' | 'sagma';
 
 export interface MechanicalPart {
   id: string;

@@ -37,13 +37,24 @@ export default function DrumTypeMagnet({
   const [deflectorAngle, setDeflectorAngle] = useState<number>(32);
 
   const colors = {
-    bg: theme === 'blueprint' ? '#0a192f' : theme === 'dark-industry' ? '#121214' : '#ffffff',
-    text: theme === 'blueprint' ? '#38bdf8' : theme === 'dark-industry' ? '#e2e8f0' : '#1e293b',
-    border: theme === 'blueprint' ? '#0ea5e9' : theme === 'dark-industry' ? '#334155' : '#94a3b8',
-    structure: theme === 'blueprint' ? '#0f766e' : theme === 'dark-industry' ? '#475569' : '#e2e8f0',
-    structureStroke: theme === 'blueprint' ? '#0ea5e9' : theme === 'dark-industry' ? '#94a3b8' : '#334155',
-    magnetField: theme === 'blueprint' ? 'rgba(239, 68, 68, 0.25)' : 'rgba(239, 68, 68, 0.12)',
-    activeHighlight: 'rgba(234, 179, 8, 0.25)',
+    bg: theme === 'sagma' ? '#ffffff' : theme === 'blueprint' ? '#0a192f' : theme === 'dark-industry' ? '#121214' : '#ffffff',
+    text: theme === 'sagma' ? '#003366' : theme === 'blueprint' ? '#38bdf8' : theme === 'dark-industry' ? '#e2e8f0' : '#1e293b',
+    border: theme === 'sagma' ? '#003366' : theme === 'blueprint' ? '#0ea5e9' : theme === 'dark-industry' ? '#334155' : '#94a3b8',
+    structure: theme === 'sagma' ? '#E1E8ED' : theme === 'blueprint' ? '#0f766e' : theme === 'dark-industry' ? '#475569' : '#e2e8f0',
+    structureStroke: theme === 'sagma' ? '#003366' : theme === 'blueprint' ? '#0ea5e9' : theme === 'dark-industry' ? '#94a3b8' : '#334155',
+    magnetField: theme === 'sagma' ? 'rgba(0, 51, 102, 0.08)' : theme === 'blueprint' ? 'rgba(239, 68, 68, 0.25)' : 'rgba(239, 68, 68, 0.12)',
+    activeHighlight: theme === 'sagma' ? 'rgba(242, 169, 0, 0.3)' : 'rgba(234, 179, 8, 0.25)',
+  };
+
+  const flowColors = {
+    grain1: theme === 'sagma' ? '#F2A900' : '#d97706',
+    grain2: theme === 'sagma' ? '#F2A900' : '#f59e0b',
+    grain3: theme === 'sagma' ? '#F2A900' : '#fbbf24',
+    
+    waste1: theme === 'sagma' ? '#8B0000' : '#ef4444',
+    waste2: theme === 'sagma' ? '#8B0000' : '#475569',
+    waste3: theme === 'sagma' ? '#8B0000' : '#1e293b',
+    waste4: theme === 'sagma' ? '#8B0000' : '#64748b',
   };
 
   const speedSec = state.speed === 'paused' ? 0 : state.speed === 'slow' ? 12 : state.speed === 'fast' ? 3 : 6;
@@ -254,17 +265,17 @@ export default function DrumTypeMagnet({
           {state.showGrain && state.speed !== 'paused' && (
             <g id="pure-grain-particles">
               {/* Feed flow entering drum */}
-              <circle r="3.5" fill="#d97706" style={{ animation: `flow-mag-inlet ${speedSec/4}s linear infinite` }} />
-              <circle r="4" fill="#f59e0b" style={{ animation: `flow-mag-inlet-2 ${speedSec/4}s linear 0.3s infinite` }} />
+              <circle r="3.5" fill={flowColors.grain1} style={{ animation: `flow-mag-inlet ${speedSec/4}s linear infinite` }} />
+              <circle r="4" fill={flowColors.grain2} style={{ animation: `flow-mag-inlet-2 ${speedSec/4}s linear 0.3s infinite` }} />
 
               {/* Grain sliding along rotating outer shell */}
-              <circle r="3.5" fill="#d97706" style={{ animation: `flow-grain-drum-slide-1 ${speedSec/2.5}s linear infinite` }} />
-              <circle r="4.2" fill="#fbbf24" style={{ animation: `flow-grain-drum-slide-2 ${speedSec/2.5}s linear 0.4s infinite` }} />
+              <circle r="3.5" fill={flowColors.grain1} style={{ animation: `flow-grain-drum-slide-1 ${speedSec/2.5}s linear infinite` }} />
+              <circle r="4.2" fill={flowColors.grain3} style={{ animation: `flow-grain-drum-slide-2 ${speedSec/2.5}s linear 0.4s infinite` }} />
 
               {/* Falling off into clear flow to bottom-right exit */}
-              <circle r="4" fill="#d97706" style={{ animation: `flow-grain-mag-clean-1 ${speedSec/3.5}s linear infinite` }} />
-              <circle r="3" fill="#f59e0b" style={{ animation: `flow-grain-mag-clean-2 ${speedSec/3.5}s linear 0.2s infinite` }} />
-              <circle r="3.5" fill="#fbbf24" style={{ animation: `flow-grain-mag-clean-3 ${speedSec/3.5}s linear 0.45s infinite` }} />
+              <circle r="4" fill={flowColors.grain1} style={{ animation: `flow-grain-mag-clean-1 ${speedSec/3.5}s linear infinite` }} />
+              <circle r="3" fill={flowColors.grain2} style={{ animation: `flow-grain-mag-clean-2 ${speedSec/3.5}s linear 0.2s infinite` }} />
+              <circle r="3.5" fill={flowColors.grain3} style={{ animation: `flow-grain-mag-clean-3 ${speedSec/3.5}s linear 0.45s infinite` }} />
             </g>
           )}
 
@@ -274,12 +285,17 @@ export default function DrumTypeMagnet({
           {state.showWaste && state.speed !== 'paused' && (
             <g id="attracted-iron-particles">
               {/* Iron falling from feed and getting stuck on right-half boundary */}
-              <rect width="4.5" height="4.5" fill="#ef4444" style={{ animation: `flow-iron-attract-1 ${speedSec/1.5}s linear infinite` }} />
-              <polygon points="0,0 5,0 2.5,5" fill="#475569" style={{ animation: `flow-iron-attract-2 ${speedSec/1.5}s linear 0.6s infinite` }} />
+              <circle r="3" fill={flowColors.waste1} style={{ animation: `flow-iron-attract-1 ${speedSec/1.5}s linear infinite` }} />
+              <circle r="3.5" fill={flowColors.waste2} style={{ animation: `flow-iron-attract-2 ${speedSec/1.5}s linear 0.6s infinite` }} />
 
               {/* Falling off on the left side (outside N/S field) into waste bin */}
-              <rect width="5" height="5" fill="#ef4444" style={{ animation: `flow-iron-release-1 ${speedSec/3.5}s linear infinite` }} />
-              <polygon points="0,0 6,0 3,6" fill="#1e293b" style={{ animation: `flow-iron-release-2 ${speedSec/3.5}s linear 0.4s infinite` }} />
+              <circle r="3.5" fill={flowColors.waste1} style={{ animation: `flow-iron-release-1 ${speedSec/3.5}s linear infinite` }} />
+              <circle r="2.8" fill={flowColors.waste3} style={{ animation: `flow-iron-release-2 ${speedSec/3.5}s linear 0.4s infinite` }} />
+
+              {/* Extra minor debris particles for beautiful volumetric coverage */}
+              <circle r="1.6" fill={flowColors.waste3} style={{ animation: `flow-iron-attract-1 ${speedSec/1.8}s linear 0.3s infinite` }} />
+              <circle r="2.2" fill={flowColors.waste1} style={{ animation: `flow-iron-release-1 ${speedSec/4.0}s linear 0.2s infinite` }} />
+              <circle r="1.8" fill={flowColors.waste4} style={{ animation: `flow-iron-release-2 ${speedSec/3.0}s linear 0.5s infinite` }} />
             </g>
           )}
 

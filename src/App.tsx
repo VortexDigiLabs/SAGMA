@@ -31,7 +31,7 @@ type ActiveDiagram = 'apex' | 'aspirator' | 'magnet';
 
 export default function App() {
   const [activeDiagram, setActiveDiagram] = useState<ActiveDiagram>('apex');
-  const [theme, setTheme] = useState<ThemeType>('textbook');
+  const [theme, setTheme] = useState<ThemeType>('sagma');
   
   // HUD interaction state
   const [hoveredPartId, setHoveredPartId] = useState<string | null>(null);
@@ -140,16 +140,12 @@ export default function App() {
           <div className="flex items-center gap-3">
             <div className="relative bg-gradient-to-tr from-amber-500 to-emerald-500 p-2.5 rounded-xl shadow-lg">
               <Compass className="w-5 h-5 text-slate-950 stroke-[2.2]" />
-              <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-sky-400 rounded-full animate-ping"></span>
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-md md:text-lg font-bold tracking-widest text-white uppercase font-serif">
                   SCHEMATIC WORKBENCH
                 </h1>
-                <span className="text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-0.2 rounded-full uppercase">
-                  Modernized Vectors
-                </span>
               </div>
               <p className="text-[11px] text-slate-400">
                 Pixel-perfect replicas of classic mechanical drawings with advanced animation flow & text preservation

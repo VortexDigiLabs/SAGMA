@@ -33,6 +33,7 @@ interface ControlProps {
 }
 
 const THEME_OPTIONS: { id: ThemeType; label: string; desc: string; color: string }[] = [
+  { id: 'sagma', label: 'SAGMA Academic', desc: 'Sterile white sheet, Industrial Steel Blue outlines, Maize Yellow grains.', color: 'bg-white border-blue-900 text-slate-800' },
   { id: 'textbook', label: 'Classic Textbook', desc: 'Slightly off-white cream backsheet, steel details, colored material flows.', color: 'bg-white border-slate-300 text-slate-800' },
   { id: 'blueprint', label: 'Technical Blueprint', desc: 'Luminescent neon cyan shapes over dark cobalt engineering drafting sheet.', color: 'bg-slate-950 border-sky-500 text-sky-400' },
   { id: 'dark-industry', label: 'Dark Operator', desc: 'Clean charcoal matte panels, dark slate frames, optimized eye safety.', color: 'bg-zinc-900 border-zinc-700 text-slate-300' },

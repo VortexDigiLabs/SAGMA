@@ -43,13 +43,27 @@ export default function ApexSeparator({
 
   // Color mappings based on ThemeType
   const colors = {
-    bg: theme === 'blueprint' ? '#0a192f' : theme === 'dark-industry' ? '#121214' : '#ffffff',
-    text: theme === 'blueprint' ? '#38bdf8' : theme === 'dark-industry' ? '#e2e8f0' : '#1e293b',
-    border: theme === 'blueprint' ? '#0ea5e9' : theme === 'dark-industry' ? '#334155' : '#94a3b8',
-    structure: theme === 'blueprint' ? '#0f766e' : theme === 'dark-industry' ? '#475569' : '#cbd5e1',
-    structureStroke: theme === 'blueprint' ? '#0ea5e9' : theme === 'dark-industry' ? '#94a3b8' : '#475569',
-    beltFill: theme === 'blueprint' ? 'rgba(14, 165, 233, 0.1)' : theme === 'dark-industry' ? 'rgba(71, 85, 105, 0.2)' : 'rgba(203, 213, 225, 0.15)',
-    activeHighlight: 'rgba(234, 179, 8, 0.25)', // golden yellow highlights
+    bg: theme === 'sagma' ? '#ffffff' : theme === 'blueprint' ? '#0a192f' : theme === 'dark-industry' ? '#121214' : '#ffffff',
+    text: theme === 'sagma' ? '#003366' : theme === 'blueprint' ? '#38bdf8' : theme === 'dark-industry' ? '#e2e8f0' : '#1e293b',
+    border: theme === 'sagma' ? '#003366' : theme === 'blueprint' ? '#0ea5e9' : theme === 'dark-industry' ? '#334155' : '#94a3b8',
+    structure: theme === 'sagma' ? '#E1E8ED' : theme === 'blueprint' ? '#0f766e' : theme === 'dark-industry' ? '#475569' : '#cbd5e1',
+    structureStroke: theme === 'sagma' ? '#003366' : theme === 'blueprint' ? '#0ea5e9' : theme === 'dark-industry' ? '#94a3b8' : '#475569',
+    beltFill: theme === 'sagma' ? 'rgba(0, 51, 102, 0.08)' : theme === 'blueprint' ? 'rgba(14, 165, 233, 0.1)' : theme === 'dark-industry' ? 'rgba(71, 85, 105, 0.2)' : 'rgba(203, 213, 225, 0.15)',
+    activeHighlight: theme === 'sagma' ? 'rgba(242, 169, 0, 0.3)' : 'rgba(234, 179, 8, 0.25)', // golden yellow highlights
+  };
+
+  const flowColors = {
+    grain1: theme === 'sagma' ? '#F2A900' : '#d97706',
+    grain2: theme === 'sagma' ? '#F2A900' : '#f59e0b',
+    grain3: theme === 'sagma' ? '#F2A900' : '#b45309',
+    grain4: theme === 'sagma' ? '#F2A900' : '#fbbf24',
+    sand1: theme === 'sagma' ? '#F2A900' : '#eab308',
+    sand2: theme === 'sagma' ? '#F2A900' : '#ca8a04',
+    sand3: theme === 'sagma' ? '#F2A900' : '#a16207',
+    
+    waste1: theme === 'sagma' ? '#8B0000' : '#ef4444',
+    waste2: theme === 'sagma' ? '#8B0000' : '#64748b',
+    waste3: theme === 'sagma' ? '#8B0000' : '#475569',
   };
 
   // Get animation speed in seconds
@@ -435,27 +449,27 @@ export default function ApexSeparator({
           {state.showGrain && state.speed !== 'paused' && (
             <g id="grain-flow-particles">
               {/* Particles from FEED entering top - Gold circles cascading */}
-              <circle r="4" fill="#d97706" style={{ animation: `flow-feed-to-belt ${speedSec/4}s linear infinite` }} />
-              <circle r="4.5" fill="#f59e0b" style={{ animation: `flow-feed-to-belt-2 ${speedSec/4}s linear ${speedSec/8}s infinite` }} />
-              <circle r="3.5" fill="#b45309" style={{ animation: `flow-feed-to-belt-3 ${speedSec/4}s linear 0.4s infinite` }} />
+              <circle r="4" fill={flowColors.grain1} style={{ animation: `flow-feed-to-belt ${speedSec/4}s linear infinite` }} />
+              <circle r="4.5" fill={flowColors.grain2} style={{ animation: `flow-feed-to-belt-2 ${speedSec/4}s linear ${speedSec/8}s infinite` }} />
+              <circle r="3.5" fill={flowColors.grain3} style={{ animation: `flow-feed-to-belt-3 ${speedSec/4}s linear 0.4s infinite` }} />
 
               {/* Grains rolling along upper section of endless mesh band */}
-              <circle r="3.5" fill="#f59e0b" style={{ animation: `flow-belt-crawl-1 ${speedSec/2}s linear infinite` }} />
-              <circle r="4" fill="#d97706" style={{ animation: `flow-belt-crawl-2 ${speedSec/2}s linear ${speedSec/6}s infinite` }} />
-              <circle r="3" fill="#fbbf24" style={{ animation: `flow-belt-crawl-3 ${speedSec/2}s linear ${speedSec/3}s infinite` }} />
+              <circle r="3.5" fill={flowColors.grain2} style={{ animation: `flow-belt-crawl-1 ${speedSec/2}s linear infinite` }} />
+              <circle r="4" fill={flowColors.grain1} style={{ animation: `flow-belt-crawl-2 ${speedSec/2}s linear ${speedSec/6}s infinite` }} />
+              <circle r="3" fill={flowColors.grain4} style={{ animation: `flow-belt-crawl-3 ${speedSec/2}s linear ${speedSec/3}s infinite` }} />
 
               {/* Grains falling through mesh conveyor down to sand screen */}
-              <circle r="3.5" fill="#f59e0b" style={{ animation: `flow-fall-to-screen ${speedSec/3}s linear infinite` }} />
-              <circle r="4" fill="#d97706" style={{ animation: `flow-fall-to-screen-2 ${speedSec/3}s linear 0.3s infinite` }} />
+              <circle r="3.5" fill={flowColors.grain2} style={{ animation: `flow-fall-to-screen ${speedSec/3}s linear infinite` }} />
+              <circle r="4" fill={flowColors.grain1} style={{ animation: `flow-fall-to-screen-2 ${speedSec/3}s linear 0.3s infinite` }} />
 
               {/* Grains sliding down the Sand Screen to the clean GRAIN outlet */}
-              <circle r="3.8" fill="#d97706" style={{ animation: `flow-screen-slide-1 ${speedSec/2.5}s linear infinite` }} />
-              <circle r="3" fill="#f59e0b" style={{ animation: `flow-screen-slide-2 ${speedSec/2.5}s linear 0.5s infinite` }} />
-              <circle r="4.2" fill="#b45309" style={{ animation: `flow-screen-slide-3 ${speedSec/2.5}s linear 1.1s infinite` }} />
+              <circle r="3.8" fill={flowColors.grain1} style={{ animation: `flow-screen-slide-1 ${speedSec/2.5}s linear infinite` }} />
+              <circle r="3" fill={flowColors.grain2} style={{ animation: `flow-screen-slide-2 ${speedSec/2.5}s linear 0.5s infinite` }} />
+              <circle r="4.2" fill={flowColors.grain3} style={{ animation: `flow-screen-slide-3 ${speedSec/2.5}s linear 1.1s infinite` }} />
 
               {/* Clean grain final stream falling down */}
-              <circle r="3.5" fill="#f59e0b" style={{ animation: `flow-grain-final ${speedSec/5}s linear infinite` }} />
-              <circle r="4" fill="#d97706" style={{ animation: `flow-grain-final-2 ${speedSec/5}s linear 0.2s infinite` }} />
+              <circle r="3.5" fill={flowColors.grain2} style={{ animation: `flow-grain-final ${speedSec/5}s linear infinite` }} />
+              <circle r="4" fill={flowColors.grain1} style={{ animation: `flow-grain-final-2 ${speedSec/5}s linear 0.2s infinite` }} />
             </g>
           )}
 
@@ -465,10 +479,10 @@ export default function ApexSeparator({
           {state.showAir && state.speed !== 'paused' && (
             <g id="sand-flow-particles">
               {/* Sand is very fine yellow grains falling through Sand Screen into SAND outlet */}
-              <circle r="2" fill="#eab308" style={{ animation: `flow-sand-fall-1 ${speedSec/3}s linear infinite` }} />
-              <circle r="1.8" fill="#ca8a04" style={{ animation: `flow-sand-fall-2 ${speedSec/3}s linear 0.15s infinite` }} />
-              <circle r="2.2" fill="#a16207" style={{ animation: `flow-sand-fall-3 ${speedSec/3}s linear 0.4s infinite` }} />
-              <circle r="1.5" fill="#eab308" style={{ animation: `flow-sand-fall-4 ${speedSec/3}s linear 0.6s infinite` }} />
+              <circle r="2" fill={flowColors.sand1} style={{ animation: `flow-sand-fall-1 ${speedSec/3}s linear infinite` }} />
+              <circle r="1.8" fill={flowColors.sand2} style={{ animation: `flow-sand-fall-2 ${speedSec/3}s linear 0.15s infinite` }} />
+              <circle r="2.2" fill={flowColors.sand3} style={{ animation: `flow-sand-fall-3 ${speedSec/3}s linear 0.4s infinite` }} />
+              <circle r="1.5" fill={flowColors.sand1} style={{ animation: `flow-sand-fall-4 ${speedSec/3}s linear 0.6s infinite` }} />
             </g>
           )}
 
@@ -478,23 +492,33 @@ export default function ApexSeparator({
           {state.showWaste && state.speed !== 'paused' && (
             <g id="rubble-flow-particles">
               {/* Coarse debris ride the endless mesh belt past the jockey pulley up to the terminal pulley */}
-              <rect width="6" height="6" fill="#64748b" style={{ transformOrigin: '3px 3px', animation: `flow-rubble-belt ${speedSec/1.5}s linear infinite` }} />
-              <polygon points="0,0 7,0 4,6" fill="#ef4444" style={{ animation: `flow-rubble-belt-2 ${speedSec/1.5}s linear 0.8s infinite` }} />
-              <rect width="5" height="5" fill="#475569" style={{ transformOrigin: '2px 2px', animation: `flow-rubble-belt-3 ${speedSec/1.5}s linear 1.6s infinite` }} />
+              <circle r="3.5" fill={flowColors.waste2} style={{ animation: `flow-rubble-belt ${speedSec/1.5}s linear infinite` }} />
+              <circle r="4" fill={flowColors.waste1} style={{ animation: `flow-rubble-belt-2 ${speedSec/1.5}s linear 0.8s infinite` }} />
+              <circle r="3" fill={flowColors.waste3} style={{ animation: `flow-rubble-belt-3 ${speedSec/1.5}s linear 1.6s infinite` }} />
+
+              {/* Minor/smaller debris components flying/flowing on conveyor belt */}
+              <circle r="2.5" fill={flowColors.waste3} style={{ animation: `flow-rubble-belt ${speedSec/2}s linear 0.5s infinite` }} />
+              <circle r="2" fill={flowColors.waste1} style={{ animation: `flow-rubble-belt-2 ${speedSec/1.8}s linear 0.2s infinite` }} />
+              <circle r="1.6" fill={flowColors.waste2} style={{ animation: `flow-rubble-belt-3 ${speedSec/1.4}s linear 1.0s infinite` }} />
 
               {/* Rubble gets swept off on the right by belt curvature, falling into RUBBLE outlet */}
-              <rect width="7" height="7" fill="#64748b" style={{ animation: `flow-rubble-dump-1 ${speedSec/3}s linear infinite` }} />
-              <polygon points="0,0 8,0 4,8" fill="#ef4444" style={{ animation: `flow-rubble-dump-2 ${speedSec/3}s linear 0.4s infinite` }} />
+              <circle r="4.5" fill={flowColors.waste2} style={{ animation: `flow-rubble-dump-1 ${speedSec/3}s linear infinite` }} />
+              <circle r="3.8" fill={flowColors.waste1} style={{ animation: `flow-rubble-dump-2 ${speedSec/3}s linear 0.4s infinite` }} />
+
+              {/* Extra minor debris particles for beautiful volumetric coverage */}
+              <circle r="2" fill={flowColors.waste3} style={{ animation: `flow-rubble-dump-1 ${speedSec/3.5}s linear 0.15s infinite` }} />
+              <circle r="2.2" fill={flowColors.waste1} style={{ animation: `flow-rubble-dump-2 ${speedSec/2.5}s linear 0.6s infinite` }} />
+              <circle r="1.8" fill={flowColors.waste2} style={{ animation: `flow-rubble-dump-1 ${speedSec/2.8}s linear 0.8s infinite` }} />
             </g>
           )}
 
           {/* STATIC DECORATIVE FLOW INDICATOR PATHS FOR EXPLAINABILITY */}
           <g opacity="0.45" strokeDasharray="3,3">
             {/* Grain Flow Line */}
-            <path d="M 230 110 L 220 200 C 235 220, 245 220, 280 230 Q 320 260 350 320" fill="none" stroke="#d97706" strokeWidth="1.5" />
-            <path d="M 350 320 L 250 420 L 200 450" fill="none" stroke="#d97706" strokeWidth="1.5" />
+            <path d="M 230 110 L 220 200 C 235 220, 245 220, 280 230 Q 320 260 350 320" fill="none" stroke={flowColors.grain1} strokeWidth="1.5" />
+            <path d="M 350 320 L 250 420 L 200 450" fill="none" stroke={flowColors.grain1} strokeWidth="1.5" />
             {/* Rubble Flow Line */}
-            <path d="M 220 205 L 420 190 L 540 220 C 580 250, 580 300, 585 360 L 610 440" fill="none" stroke="#ef4444" strokeWidth="1.5" />
+            <path d="M 220 205 L 420 190 L 540 220 C 580 250, 580 300, 585 360 L 610 440" fill="none" stroke={flowColors.waste1} strokeWidth="1.5" />
           </g>
 
           {/* ========================================================= */}
